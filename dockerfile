@@ -2,7 +2,7 @@ FROM alpine:latest
 
 WORKDIR /PROJECT
 
-RUN apk install --no-cache nodejs npm
+RUN apk add --no-cache nodejs npm
 
 COPY . /PROJECT/
 
