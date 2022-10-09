@@ -18,7 +18,7 @@ pipeline {
                 }
             }
         }
-        stage(dockerhub push kubernetes){
+        stage('dockerhub push kubernetes'){
             steps{
                 sh "chmod +x changeTag.sh"
                 sh "./changeTag.sh ${DOCKER_TAG}"
