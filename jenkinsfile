@@ -22,15 +22,15 @@ pipeline {
             steps{
                 sh "chmod +x changeTag.sh"
                 sh "./changeTag.sh ${DOCKER_TAG}"
-                withCredentials([string(credentialsId: 'tharun', variable: 'tharunpwd')]) {
+                sshagent(['k8i']){
                     sh "ssh tharun@20.125.126.134 -p ${tharunpwd}"
-                    sh "scp StrictHostKeyChecking=no service.yaml node-app-pod.yaml tharun@20.125.126.134:/home/tharun/"
+                    sh "scp StrictHostKeyChecking=no service.yaml node-app-pod.yaml /home/tharun/"
                     script{
                         try{
-                            sh"ssh tharun@20.125.126.134 kubectl apply -f ."
+                            sh"kubectl apply -f ."
                         }
                         catch(error){
-                            sh"ssh tharun@20.125.126.134 kubectl create -f ."
+                            sh"kubectl create -f ."
                         }
                     }
                 }
