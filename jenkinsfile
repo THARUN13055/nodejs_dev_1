@@ -10,6 +10,12 @@ pipeline {
                 sh "docker build . -t tharun13055/nodejs_dev:${DOCKER_TAG}"
             }
         }
+        stage('dockerimage push dockerhub'){
+            withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhubpwd')]) {
+                sh "docker login -u tharun13055 -p ${dockerhubpwd}"
+                sh 'docker push tharun13055/nodejs_dev:${DOCKER_TAG}'
+            }
+        }
     }
 }
 
