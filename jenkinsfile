@@ -22,14 +22,8 @@ pipeline {
             steps{
                 sh "chmod +x changeTag.sh"
                 sh "./changeTag.sh ${DOCKER_TAG}"   
-                script{
-                    try{
-                        sh"kubectl apply -f ."
-                    }
-                    catch(error){
-                        sh"kubectl create -f ."
-                    }
-                }
+                sh "kubectl apply -f node-app-pod.yaml ."
+                sh "kubectl apply -f service.yaml"
             }
         }
     }
