@@ -22,7 +22,6 @@ pipeline {
             steps{
                 sh "chmod +x changeTag.sh"
                 sh "./changeTag.sh ${DOCKER_TAG}"   
-                sh "scp StrictHostKeyChecking=no service.yaml node-app-pod.yaml /home/tharun/ home/tharun"
                 script{
                     try{
                         sh"kubectl apply -f ."
