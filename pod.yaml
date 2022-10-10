@@ -6,7 +6,7 @@ metadata:
     name: mynode
 spec:
   containers:
-  - name: my_node
-    image: tharun13055/nodejs_dev:tagVersion
+  - name: mynode
+    image: tharun13055/nodejs_dev:latest
     ports:
       - containerPort: 3000
