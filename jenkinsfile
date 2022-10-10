@@ -21,17 +21,14 @@ pipeline {
         stage('dockerhub push kubernetes'){
             steps{
                 sh "chmod +x changeTag.sh"
-                sh "./changeTag.sh ${DOCKER_TAG}"
-                sshagent(['k8i']){
-                    sh "ssh tharun@20.125.126.134 -p ${tharunpwd}"
-                    sh "scp StrictHostKeyChecking=no service.yaml node-app-pod.yaml /home/tharun/"
-                    script{
-                        try{
-                            sh"kubectl apply -f ."
-                        }
-                        catch(error){
-                            sh"kubectl create -f ."
-                        }
+                sh "./changeTag.sh ${DOCKER_TAG}"   
+                sh "scp StrictHostKeyChecking=no service.yaml node-app-pod.yaml /home/tharun/ home/tharun"
+                script{
+                    try{
+                        sh"kubectl apply -f ."
+                    }
+                    catch(error){
+                        sh"kubectl create -f ."
                     }
                 }
             }
