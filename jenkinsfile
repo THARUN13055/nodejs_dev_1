@@ -18,14 +18,19 @@ pipeline {
                 }
             }
         }
-        stage('dockerhub push kubernetes'){
+        stage('kubernetes deploy'){
             steps{
-                sh "chmod +x changeTag.sh"
-                sh "./changeTag.sh ${DOCKER_TAG}" 
-        
-                sh "kubectl get nodes"  
-                sh "kubectl apply -f node-app-pod.yaml"
-                sh "kubectl apply -f service.yaml"
+                sshagent(['aws']) {
+                    sh 'ssh -o StrictHostKeyChecking=no service.yaml node-app-pod.yaml ubuntu@54.196.255.21:/home/ubuntu/'
+                    script{
+                        try{
+                            sh "ssh ubuntu@54.196.255.21 kubectl apply -f ."
+                        }
+                        catch(error){
+                            sh "ssh ubuntu@54.196.255.21 kubectl create -f ."
+                        }
+                    }
+                    }
             }
         }
     }
