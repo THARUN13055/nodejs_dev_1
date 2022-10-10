@@ -20,6 +20,8 @@ pipeline {
         }
         stage('kubernetes deploy'){
             steps{
+                sh "chmod +x changeTag.sh"
+                sh "./changeTag.sh ${DOCKER_TAG}"
                 sshagent(['aws']) {
                     sh "scp -o StrictHostKeyChecking=no service.yaml node-app-pod.yaml ubuntu@54.196.255.21:/home/ubuntu/"
                     script{
