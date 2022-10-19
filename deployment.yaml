@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deployment
+  namespace: nodeapp
+  labels:
+    name: mynode
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: mynode
+  template:  
+    metadata:
+      labels:
+        name: mynode
+    spec:
+      containers:
+        - name: mynode
+          image: tharun13055/nodejs_dev:tagVersion
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "256Mi"
+            limits:
+              cpu: "1000m"
+              memory: "512Mi"
+
+
+
+    
