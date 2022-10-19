@@ -1,8 +1,7 @@
 apiVersion: autoscaling/v2
-kind: HorizontalPodAutoScaler
+kind: HorizontalPodAutoscaler
 metadata:
   name: autoscale
-  namespace: nodeapp
 spec:
   scaleTargetRef:
     kind: Deployment
@@ -27,4 +26,5 @@ status:
       current:
         averageUtilization: 0
         averageValue: 0
+
 
