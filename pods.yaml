@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nodejsdev
+  namespace: nodeapp
+  labels:
+    name: mynode
+spec:
+  containers:
+  - name: mynode
+    image: tharun13055/nodejs_dev:tagVersion
+    ports:
+      - containerPort: 3000
+
+      
